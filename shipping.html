@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://jspm.dev/@spectrum-web-components/bundle/elements.js" type="module" async></script>
+  <script src="widgets_data.js"></script>
+  <script src="shipping_data.js"></script>
+  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico">
+  <title>My Widget Factory: Shipping</title>
+</head>
+<body onload="loadShippingPage()">
+<sp-theme scale="medium" color="light">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div>
+      <h1 class="brand-title">&#9829;&#8330; &#8889; My Widget Factory</h1>
+      <p class="brand-sub">Custom Widgets crafted with love</p>
+    </div>
+    <nav class="step-nav" aria-label="Order steps">
+      <span class="step-pill">ORDER</span>
+      <span class="step-arrow">›</span>
+      <span class="step-pill active">SHIPPING</span>
+      <span class="step-arrow">›</span>
+      <span class="step-pill">SUMMARY</span>
+    </nav>
+  </header>
+
+  <div class="page-body">
+    <h2 class="page-h1">Shipping Info</h2>
+    <p class="page-sub">We ship anywhere in the United States. Fill in your delivery details below.</p>
+
+    <!-- DELIVERY ADDRESS -->
+    <div class="section-card">
+      <h3 class="section-h">Delivery Address</h3>
+      <div class="addr-full">
+        <sp-field-label for="address">Street Address</sp-field-label>
+        <sp-textfield id="address" name="address"
+          placeholder="e.g. 6093 Donald Bren Hall"></sp-textfield>
+      </div>
+      <div class="addr-row3">
+        <div>
+          <sp-field-label for="city">City</sp-field-label>
+          <sp-textfield id="city" name="city" placeholder="City"></sp-textfield>
+        </div>
+        <div>
+          <sp-field-label for="state">State</sp-field-label>
+          <sp-textfield id="state" name="state" placeholder="CA"></sp-textfield>
+        </div>
+        <div>
+          <sp-field-label for="zip">Zip Code</sp-field-label>
+          <sp-textfield id="zip" name="zip" placeholder="92617"></sp-textfield>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHIPPING SPEED -->
+    <div class="section-card">
+      <h3 class="section-h">Shipping Speed</h3>
+
+      <!--
+        sp-table with single selection.
+        A hidden input#shipping_speed is kept in sync so script.js
+        can read el.value reliably (it checks el.value then el.selected).
+      -->
+      <sp-table emphasized selects="single"
+        aria-label="Shipping speed options"
+        id="shipping_speed_sp_table">
+        <sp-table-head>
+          <sp-table-head-cell>Shipping Option</sp-table-head-cell>
+          <sp-table-head-cell>Arrival</sp-table-head-cell>
+          <sp-table-head-cell>Price</sp-table-head-cell>
+        </sp-table-head>
+        <sp-table-body>
+          <sp-table-row value="express">
+            <sp-table-cell>Express Shipping</sp-table-cell>
+            <sp-table-cell>1 Business Day</sp-table-cell>
+            <sp-table-cell>$15.99</sp-table-cell>
+          </sp-table-row>
+          <sp-table-row value="standard" selected>
+            <sp-table-cell>Standard Shipping</sp-table-cell>
+            <sp-table-cell>5 Business Days</sp-table-cell>
+            <sp-table-cell>$3.99</sp-table-cell>
+          </sp-table-row>
+          <sp-table-row value="slow">
+            <sp-table-cell>Slow Shipping</sp-table-cell>
+            <sp-table-cell>10 Business Days</sp-table-cell>
+            <sp-table-cell>$0.99</sp-table-cell>
+          </sp-table-row>
+        </sp-table-body>
+      </sp-table>
+
+      <!-- script.js reads this element's .value for shipping_speed -->
+      <input type="hidden" id="shipping_speed" value="standard">
+    </div>
+
+    <!-- YOUR ORDER (read-only summary) -->
+    <div class="section-card" style="padding-bottom:0;">
+      <h3 class="section-h">Your Order</h3>
+      <div class="your-order-grid">
+
+        <div class="mini-card">
+          <div class="mini-photo">
+            <img src="images/toyboat.jpg" alt="Toy Boat">
+            <div class="mini-rating"><span class="r-star">★</span>4.6</div>
+          </div>
+          <div class="mini-body">
+            <div class="mini-tr">
+              <h4 class="mini-name">Toy Boat</h4>
+              <span class="mini-price">$15.99</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Quantity</span>
+              <span id="m_toyboat_qty">...</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Color</span>
+              <div class="mini-color-wrap" id="m_toyboat_color_swatch"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-photo">
+            <img src="images/paperplane.jpg" alt="Paper Plane">
+            <div class="mini-rating"><span class="r-star">★</span>3.8</div>
+          </div>
+          <div class="mini-body">
+            <div class="mini-tr">
+              <h4 class="mini-name">Paper Plane</h4>
+              <span class="mini-price">$8.52</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Quantity</span>
+              <span id="m_paperplane_qty">...</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Color</span>
+              <div class="mini-color-wrap" id="m_paperplane_color_swatch"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-photo">
+            <img src="images/stuffedanimal.jpg" alt="Stuffed Animal">
+            <div class="mini-rating"><span class="r-star">★</span>4.9</div>
+          </div>
+          <div class="mini-body">
+            <div class="mini-tr">
+              <h4 class="mini-name">Stuffed Animal</h4>
+              <span class="mini-price">$9.13</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Quantity</span>
+              <span id="m_stuffedanimal_qty">...</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Color</span>
+              <div class="mini-color-wrap" id="m_stuffedanimal_color_swatch"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mini-card">
+          <div class="mini-photo">
+            <img src="images/traincar.jpg" alt="Train Car">
+            <div class="mini-rating"><span class="r-star">★</span>2.4</div>
+          </div>
+          <div class="mini-body">
+            <div class="mini-tr">
+              <h4 class="mini-name">Train Car</h4>
+              <span class="mini-price">$25.00</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Quantity</span>
+              <span id="m_traincar_qty">...</span>
+            </div>
+            <div class="mini-field">
+              <span class="mini-lbl">Color</span>
+              <div class="mini-color-wrap" id="m_traincar_color_swatch"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Total bar -->
+      <div class="total-bar" style="margin-top:20px;">
+        <span class="total-amount" id="order_total_display">$0.00</span>
+        <span class="total-lbl">Total</span>
+      </div>
+    </div>
+
+    <!-- Place Order -->
+    <button class="btn-place" id="btn_place" onclick="handlePlaceOrder()">
+      Place Order
+    </button>
+
+    <!-- Loading state, hidden until Place Order clicked -->
+    <div id="loading_progress" class="loading-wrap" hidden>
+      <p class="loading-text">Processing your order...</p>
+      <sp-progress-bar indeterminate label="Processing"
+        style="width:200px; margin:0 auto; display:block;"></sp-progress-bar>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+</sp-theme>
+
+<script>
+  var PRICES = { toyboat:15.99, paperplane:8.52, stuffedanimal:9.13, traincar:25.00 };
+  var IDS    = ['toyboat','paperplane','stuffedanimal','traincar'];
+
+  /* ── Web Audio: cute bubbly sounds ── */
+  var AudioCtx = window.AudioContext || window.webkitAudioContext;
+  var audioCtx = AudioCtx ? new AudioCtx() : null;
+
+  function boing(freq, dur, vol) {
+    if (!audioCtx) return;
+    try {
+      var osc  = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.92, audioCtx.currentTime + (dur||0.18));
+      gain.gain.setValueAtTime(0, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(vol||0.18, audioCtx.currentTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (dur||0.18));
+      osc.start(); osc.stop(audioCtx.currentTime + (dur||0.18) + 0.01);
+    } catch(e) {}
+  }
+
+  function popBubble(freq) {
+    if (!audioCtx) return;
+    try {
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * 0.6, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.3, audioCtx.currentTime + 0.06);
+      osc.frequency.exponentialRampToValueAtTime(freq, audioCtx.currentTime + 0.13);
+      gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.14);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.15);
+    } catch(e) {}
+  }
+
+  function playSuccess() {
+    boing(1047, 0.14, 0.16);
+    setTimeout(function(){ boing(1319, 0.13, 0.15); }, 95);
+    setTimeout(function(){ boing(1568, 0.18, 0.17); }, 190);
+  }
+
+  /* ── Toast ── */
+  function showToast(msg, dur) {
+    var t = document.getElementById('toast');
+    if(!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); }, dur||2000);
+  }
+
+  /* ── Sync table → hidden input ── */
+  window.addEventListener('load', function() {
+    var table = document.getElementById('shipping_speed_sp_table');
+    var hidden = document.getElementById('shipping_speed');
+
+    if (table) {
+      table.addEventListener('change', function() {
+        var rows = table.querySelectorAll('sp-table-row[selected]');
+        if (rows.length > 0) {
+          hidden.value    = rows[0].getAttribute('value') || 'standard';
+          hidden.selected = hidden.value;
+      /* Soft bubble pop when switching shipping row */
+      popBubble(1050);
+        }
+      });
+      hidden.selected = 'standard';
+    }
+
+    /* ── Populate Your Order from sessionStorage ── */
+    var total = 0;
+    IDS.forEach(function(id) {
+      var qty   = parseInt(sessionStorage.getItem(id + '_quantity') || '0');
+      var color = sessionStorage.getItem(id + '_color') || '#cccccc';
+      total += qty * PRICES[id];
+
+      var qEl = document.getElementById('m_' + id + '_qty');
+      var sEl = document.getElementById('m_' + id + '_color_swatch');
+      if (qEl) qEl.textContent = qty;
+      if (sEl) {
+        var hex = color.startsWith('#') ? color : '#' + color;
+        sEl.style.background   = hex;
+        sEl.style.width        = '26px';
+        sEl.style.height       = '26px';
+        sEl.style.borderRadius = '50%';
+        sEl.style.border       = '1.5px solid #BFC9D5';
+        sEl.style.display      = 'inline-block';
+      }
+    });
+    var tEl = document.getElementById('order_total_display');
+    if (tEl) tEl.textContent = '$' + total.toFixed(2);
+  });
+
+  function handlePlaceOrder() {
+    // Validate address fields
+    var addr  = document.getElementById('address');
+    var city  = document.getElementById('city');
+    var state = document.getElementById('state');
+    var zip   = document.getElementById('zip');
+
+    var addrVal  = addr  ? (addr.value  || '').trim() : '';
+    var cityVal  = city  ? (city.value  || '').trim() : '';
+    var stateVal = state ? (state.value || '').trim() : '';
+    var zipVal   = zip   ? (zip.value   || '').trim() : '';
+
+    if (!addrVal || !cityVal || !stateVal || !zipVal) {
+      showToast('Please fill in all address fields before placing your order.', 2500);
+      /* Sad descending boing */
+      boing(600, 0.18, 0.15);
+      setTimeout(function(){ boing(440, 0.22, 0.13); }, 130);
+      return;
+    }
+    playSuccess();
+    gotoSummaryPage();
+  }
+</script>
+</body>
+</html>

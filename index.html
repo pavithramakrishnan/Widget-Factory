@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://jspm.dev/@spectrum-web-components/bundle/elements.js" type="module" async></script>
+  <script src="widgets_data.js"></script>
+  <script src="shipping_data.js"></script>
+  <script src="script.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.ico">
+  <title>My Widget Factory: Order</title>
+</head>
+<body onload="loadOrderPage()">
+<sp-theme scale="medium" color="light">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div>
+      <h1 class="brand-title">&#9829;&#8330; &#8889; My Widget Factory</h1>
+      <p class="brand-sub">Custom Widgets crafted with love</p>
+    </div>
+    <nav class="step-nav" aria-label="Order steps">
+      <span class="step-pill active">ORDER</span>
+      <span class="step-arrow">›</span>
+      <span class="step-pill">SHIPPING</span>
+      <span class="step-arrow">›</span>
+      <span class="step-pill">SUMMARY</span>
+    </nav>
+  </header>
+
+  <div class="page-body">
+    <h2 class="page-h1">Choose Your Widgets</h2>
+    <p class="page-sub">Pick up to 10 of each widget and customize your color, every order is handmade just for you!</p>
+
+    <!-- WIDGET GRID -->
+    <div class="widget-grid">
+
+      <!-- TOY BOAT -->
+      <div class="widget-card" id="card_toyboat">
+        <div class="widget-photo">
+          <img src="images/toyboat.jpg" alt="Toy Boat">
+          <div class="rating-badge"><span class="r-star">★</span>4.6</div>
+        </div>
+        <div class="widget-body">
+          <div class="widget-title-row">
+            <h3 class="widget-name">Toy Boat</h3>
+            <span class="widget-price">$15.99</span>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Quantity</span>
+            <sp-number-field id="toyboat_quantity" value="0" min="0" max="10"
+              label="Toy Boat quantity"></sp-number-field>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Color</span>
+            <div class="color-wrap" id="wrap_toyboat">
+              <input type="color" id="toyboat_color" value="#ffcc00"
+                title="Choose Toy Boat color">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAPER PLANE -->
+      <div class="widget-card" id="card_paperplane">
+        <div class="widget-photo">
+          <img src="images/paperplane.jpg" alt="Paper Plane">
+          <div class="rating-badge"><span class="r-star">★</span>3.8</div>
+        </div>
+        <div class="widget-body">
+          <div class="widget-title-row">
+            <h3 class="widget-name">Paper Plane</h3>
+            <span class="widget-price">$8.52</span>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Quantity</span>
+            <sp-number-field id="paperplane_quantity" value="0" min="0" max="10"
+              label="Paper Plane quantity"></sp-number-field>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Color</span>
+            <div class="color-wrap" id="wrap_paperplane">
+              <input type="color" id="paperplane_color" value="#4DAFD7"
+                title="Choose Paper Plane color">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STUFFED ANIMAL -->
+      <div class="widget-card" id="card_stuffedanimal">
+        <div class="widget-photo">
+          <img src="images/stuffedanimal.jpg" alt="Stuffed Animal">
+          <div class="rating-badge"><span class="r-star">★</span>4.9</div>
+        </div>
+        <div class="widget-body">
+          <div class="widget-title-row">
+            <h3 class="widget-name">Stuffed Animal</h3>
+            <span class="widget-price">$9.13</span>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Quantity</span>
+            <sp-number-field id="stuffedanimal_quantity" value="0" min="0" max="10"
+              label="Stuffed Animal quantity"></sp-number-field>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Color</span>
+            <div class="color-wrap" id="wrap_stuffedanimal">
+              <input type="color" id="stuffedanimal_color" value="#e05a49"
+                title="Choose Stuffed Animal color">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRAIN CAR -->
+      <div class="widget-card" id="card_traincar">
+        <div class="widget-photo">
+          <img src="images/traincar.jpg" alt="Train Car">
+          <div class="rating-badge"><span class="r-star">★</span>2.4</div>
+        </div>
+        <div class="widget-body">
+          <div class="widget-title-row">
+            <h3 class="widget-name">Train Car</h3>
+            <span class="widget-price">$25.00</span>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Quantity</span>
+            <sp-number-field id="traincar_quantity" value="0" min="0" max="10"
+              label="Train Car quantity"></sp-number-field>
+          </div>
+          <div class="widget-field">
+            <span class="f-lbl">Color</span>
+            <div class="color-wrap" id="wrap_traincar">
+              <input type="color" id="traincar_color" value="#6ec875"
+                title="Choose Train Car color">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end widget-grid -->
+
+    <!-- CHECKOUT BAR -->
+    <div class="checkout-bar">
+      <div class="checkout-stats">
+        <div>
+          <span class="stat-num" id="disp_qty">0</span>
+          <span class="stat-lbl">Widgets</span>
+        </div>
+        <div>
+          <span class="stat-num" id="disp_types">0</span>
+          <span class="stat-lbl">Types</span>
+        </div>
+        <div>
+          <span class="stat-num" id="disp_subtotal">$0.00</span>
+          <span class="stat-lbl">Subtotal</span>
+        </div>
+      </div>
+      <button class="btn-outline-white" id="btn_continue" onclick="handleContinue()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>
+          <polyline points="7 9 12 4 17 9"/>
+          <line x1="12" y1="4" x2="12" y2="16"/>
+        </svg>
+        Continue to Shipping
+      </button>
+    </div>
+
+    <!-- ATTRIBUTION -->
+    <p class="attribution">
+      "<a rel="noopener noreferrer" href="https://www.flickr.com/photos/51638848@N00/3694330089">Toy boat</a>" by
+      <a rel="noopener noreferrer" href="https://www.flickr.com/photos/51638848@N00">Jon Olav</a>,
+      "<a rel="noopener noreferrer" href="https://www.flickr.com/photos/54133975@N08/20095707950">Cruelty to st&#xad;animals?</a>" by
+      <a rel="noopener noreferrer" href="https://www.flickr.com/photos/54133975@N08">Fresh On The Net</a>,
+      "<a rel="noopener noreferrer" href="https://www.flickr.com/photos/99424477@N04/10562534896">Wooden toy train</a>" by
+      <a rel="noopener noreferrer" href="https://www.flickr.com/photos/99424477@N04">prague.czech.photo</a>, and
+      "<a rel="noopener noreferrer" href="https://www.flickr.com/photos/25368895@N00/3129971362">JAL Paper Plane</a>" by
+      <a rel="noopener noreferrer" href="https://www.flickr.com/photos/25368895@N00">ayustety</a>
+      are licensed under <a rel="noopener noreferrer" href="https://creativecommons.org/licenses/by/2.0/?ref=openverse">CC BY 2.0</a>.
+    </p>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+</sp-theme>
+
+<script>
+  var PRICES = { toyboat:15.99, paperplane:8.52, stuffedanimal:9.13, traincar:25.00 };
+  var IDS    = ['toyboat','paperplane','stuffedanimal','traincar'];
+
+  /* ── Web Audio: cute bubbly sounds ── */
+  var AudioCtx = window.AudioContext || window.webkitAudioContext;
+  var audioCtx = AudioCtx ? new AudioCtx() : null;
+
+  /* Marimba-style "boing" (triangle wave, fast attack, soft decay) */
+  function boing(freq, dur, vol) {
+    if (!audioCtx) return;
+    try {
+      var osc  = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      /* tiny pitch drop (gives it a xylophone/marimba pluck feel) */
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.92, audioCtx.currentTime + (dur || 0.18));
+      gain.gain.setValueAtTime(0, audioCtx.currentTime);
+      gain.gain.linearRampToValueAtTime(vol || 0.18, audioCtx.currentTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + (dur || 0.18));
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + (dur || 0.18) + 0.01);
+    } catch(e) {}
+  }
+
+  /* Pop bubble (sine wave, quick upward pitch swoop) */
+  function popBubble(freq) {
+    if (!audioCtx) return;
+    try {
+      var osc  = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq * 0.6, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.3, audioCtx.currentTime + 0.06);
+      osc.frequency.exponentialRampToValueAtTime(freq, audioCtx.currentTime + 0.13);
+      gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.14);
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.15);
+    } catch(e) {}
+  }
+
+  /* Sparkle twinkle (two quick high boings offset slightly) */
+  function sparkle(baseFreq) {
+    boing(baseFreq,       0.13, 0.15);
+    setTimeout(function(){ boing(baseFreq * 1.26, 0.11, 0.12); }, 55);
+  }
+
+  /* "Add to cart" (bubbly double-pop ascending) */
+  function playChime() {
+    popBubble(900);
+    setTimeout(function(){ popBubble(1200); }, 80);
+  }
+
+  /* "Continue / Place Order" (cute 3-note marimba jingle) */
+  function playSuccess() {
+    boing(1047, 0.14, 0.16);   // C6
+    setTimeout(function(){ boing(1319, 0.13, 0.15); }, 95);  // E6
+    setTimeout(function(){ boing(1568, 0.18, 0.17); }, 190); // G6
+  }
+
+  /* ── Toast helper ── */
+  function showToast(msg, dur) {
+    var t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, dur || 2000);
+  }
+
+  /* ── Bounce stat element ── */
+  function bounceEl(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.classList.remove('bounce');
+    void el.offsetWidth; // reflow
+    el.classList.add('bounce');
+  }
+
+  function getQty(id) {
+    var el = document.getElementById(id + '_quantity');
+    var v  = el ? parseFloat(el.value) : 0;
+    return isNaN(v) ? 0 : Math.max(0, v);
+  }
+
+  var prevQtys = { toyboat:0, paperplane:0, stuffedanimal:0, traincar:0 };
+
+  function updateBar() {
+    var qty = 0, types = 0, sub = 0;
+    IDS.forEach(function(id) {
+      var q = getQty(id);
+      qty  += q;
+      sub  += q * PRICES[id];
+      if (q > 0) types++;
+
+      // Card glow when qty > 0
+      var card = document.getElementById('card_' + id);
+      if (card) {
+        if (q > 0) card.classList.add('has-qty');
+        else       card.classList.remove('has-qty');
+      }
+
+      // Play chime + toast on first add
+      if (q > prevQtys[id] && prevQtys[id] === 0) {
+        playChime();
+        var names = { toyboat:'Toy Boat', paperplane:'Paper Plane',
+                      stuffedanimal:'Stuffed Animal', traincar:'Train Car' };
+        showToast(names[id] + ' added to your order!', 1800);
+      }
+      prevQtys[id] = q;
+    });
+
+    var qEl = document.getElementById('disp_qty');
+    var sEl = document.getElementById('disp_subtotal');
+    var tEl = document.getElementById('disp_types');
+
+    // Bounce if changed
+    if (qEl && qEl.textContent !== String(qty)) bounceEl('disp_qty');
+    if (tEl && tEl.textContent !== String(types)) bounceEl('disp_types');
+    if (sEl && sEl.textContent !== '$' + sub.toFixed(2)) bounceEl('disp_subtotal');
+
+    if (qEl) qEl.textContent = qty;
+    if (tEl) tEl.textContent = types;
+    if (sEl) sEl.textContent = '$' + sub.toFixed(2);
+  }
+
+  function handleContinue() {
+    var qty = 0;
+    IDS.forEach(function(id){ qty += getQty(id); });
+    if (qty === 0) {
+      showToast('Please add at least one widget first!', 2200);
+      /* Sad descending boing for empty cart */
+      boing(600, 0.18, 0.15);
+      setTimeout(function(){ boing(440, 0.22, 0.13); }, 130);
+      return;
+    }
+    playSuccess();
+    gotoShippingPage();
+  }
+
+  // Color swatch: update card glow color on pick
+  function setupColorListeners() {
+    IDS.forEach(function(id) {
+      var colorEl = document.getElementById(id + '_color');
+      if (!colorEl) return;
+      colorEl.addEventListener('input', function() {
+        sparkle(1400);
+      });
+    });
+  }
+
+  window.addEventListener('load', function() {
+    IDS.forEach(function(id) {
+      var el = document.getElementById(id + '_quantity');
+      if (el) {
+        el.addEventListener('change', updateBar);
+        el.addEventListener('input',  updateBar);
+      }
+    });
+    setupColorListeners();
+    updateBar();
+  });
+</script>
+</body>
+</html>
